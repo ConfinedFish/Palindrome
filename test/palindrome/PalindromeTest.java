@@ -18,12 +18,26 @@ import static org.junit.Assert.fail;
  * @author Alex
  */
 public class PalindromeTest {
-    
+    MyVector vector;
+    double[] initValues;
+    String value;
+    Palindrome pal;
+
     public PalindromeTest() {
     }
     
     @Before
     public void setUp() {
+        initValues = new double[5];
+        initValues[0] = 1.0;
+        initValues[1] = 2.0;
+        initValues[2] = 3.0;
+        initValues[3] = 4.0;
+        initValues[4] = 5.0;
+        vector = new MyVector(initValues);
+        value = "12345";
+        pal = new Palindrome();
+
     }
 
     /**
@@ -31,14 +45,9 @@ public class PalindromeTest {
      */
     @Test
     public void testConvertToMyVector() {
-        System.out.println("convertToMyVector");
-        String str = "";
-        Palindrome instance = new Palindrome();
-        MyVector expResult = null;
-        MyVector result = instance.convertToMyVector(str);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MyVector actual = pal.convertToMyVector(value);
+        MyVector expected = new MyVector(vector);
+        assertEquals(expected, actual);
     }
 
     /**
@@ -46,14 +55,29 @@ public class PalindromeTest {
      */
     @Test
     public void testPalindrome() {
-        System.out.println("palindrome");
-        LinkedList<MyVector> list = null;
-        Palindrome instance = new Palindrome();
-        boolean expResult = false;
-        boolean result = instance.palindrome(list);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        LinkedList<MyVector> list = new LinkedList<>();
+        list.add(vector);
+        MyVector vector2 = new MyVector(pal.convertToMyVector("258"));
+        list.add(vector2);
+        MyVector vector3 = new MyVector(vector);
+        list.add(vector3);
+        boolean actual = pal.palindrome(list);
+        boolean expected = true;
+        assertEquals(expected, actual);
     }
-    
+        /**
+     * Test of palindrome method, of class Palindrome.
+     */
+    @Test
+    public void testPalindromeFail() {
+        LinkedList<MyVector> list = new LinkedList<>();
+        list.add(vector);
+        MyVector vector2 = new MyVector(pal.convertToMyVector("258"));
+        list.add(vector2);
+        MyVector vector3 = new MyVector(pal.convertToMyVector("33325"));
+        list.add(vector3);
+        boolean actual = pal.palindrome(list);
+        boolean expected = false;
+        assertEquals(expected, actual);
+    }
 }
